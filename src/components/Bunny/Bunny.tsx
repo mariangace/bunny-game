@@ -5,46 +5,49 @@ import "./styles.css";
 function Bunny() {
   const isWalkFrontPress = useKeyPress("ArrowRight");
   const isWalkBackPress = useKeyPress("ArrowLeft");
-  const [moving, setMoving] = useState(false)
+  //const [moving, setMoving] = useState(false)
   const [position, setPosition] = useState(0);
   const [goFoward, setGoFoward] = useState(true);
 
-  const movingBunny = useCallback(() => {
-    if (isWalkFrontPress) {
-      setGoFoward(true);
-        setMoving(!moving)
-    }
-    if (isWalkBackPress) {
-      setGoFoward(false);
-        setMoving(!moving)
-    }
-    },
-    [isWalkBackPress,isWalkFrontPress,moving]
-  ) 
+  // const movingBunny = useCallback(() => {
+  //   if (isWalkFrontPress) {
+  //     setGoFoward(true);
+  //       setMoving(!moving)
+  //   }
+  //   if (isWalkBackPress) {
+  //     setGoFoward(false);
+  //       setMoving(!moving)
+  //   }
+  //   },
+  //   [isWalkBackPress,isWalkFrontPress,moving]
+  // ) 
   
   const move = useCallback(
     () => {
       if(isWalkFrontPress){
-        setPosition(position+0.1)
-        setMoving(!moving)
+        setPosition(position+0.1);
+        //setMoving(!moving);
+        //setGoFoward(true);
       }
       if(isWalkBackPress){
-        setPosition(position-0.1)
-        setMoving(!moving)
+        setPosition(position-0.1);
+        //setMoving(!moving);
+        //setGoFoward(false);
       } 
     },
-    [isWalkFrontPress,isWalkBackPress, moving, position],
+    [isWalkFrontPress, isWalkBackPress, position],
   )
   useEffect(() => {
    move();
-  }, [moving, move])
+  // }, [moving, move])
+  }, [isWalkFrontPress, isWalkBackPress, move]);
 
-  useEffect(() => {
-    movingBunny()
-  }, [isWalkFrontPress, isWalkBackPress, movingBunny]);
+  // useEffect(() => {
+  //   movingBunny()
+  // }, [isWalkFrontPress, isWalkBackPress, movingBunny]);
 
   return (
-      <div className="bunny" style={{ left: position + "px" }}>
+      <div className="bunny" style={{ left:  + "px" }}>
         {!isWalkFrontPress && !isWalkBackPress && (
           <img
             src={`images/${goFoward ? "bunny.png" : "bunnyBack.png"}`}
